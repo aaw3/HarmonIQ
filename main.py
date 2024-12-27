@@ -1,14 +1,26 @@
 import requests
 import dotenv
-from spotify import lib as spotify_lib
+from spotify.lib import SpotifyAPI, SpotifyAuth
+import os
 
 def main():
     dotenv.load_dotenv()
 
-    client_id = os.getenv("SPOTIFY_CLIENT_ID")
-    client_secret = os.getenv("SPOTIFY_CLIENT_SECRET")
+    auth = None
+    try:
+        auth = SpotifyAuth()
+    except Exception as e:
+        print("Error while creating SpotifyAuth object")
+        print(e)
+        exit(1)
 
-    token = spotify_lib.get_api_token(client_id, client_secret)
-    print(token)
+
+    api = SpotifyAPI(auth.get_api_token())
+
+    artist_search = api.Search.search("Smashing Pumpkins", "artist", 1, 0)
+    artist_search = artist_search["artists"]["items"]
+    #artist_search = sorted(artist_search, key=lambda x: (x["popularity"], x["followers"]["total"]), reverse=True)
+    print(artist_search)
+
 
 main()
