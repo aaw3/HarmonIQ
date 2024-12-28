@@ -1,11 +1,10 @@
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
 import os
 import dotenv
 from db.models import engine, SessionLocal, init_db
-from maloja.lib import MalojaScrobbleServer
+from api.maloja import MalojaScrobbleServer
 from db.models import Base
 from sqlalchemy import Table, MetaData
+from api.spotify import SpotifyClient
 
 def reset_db():
     """
@@ -47,6 +46,8 @@ def main():
         print(f"Error during sync: {e}")
     finally:
         session.close()
+
+    Spotifyclient 
 
 
 if __name__ == "__main__":
