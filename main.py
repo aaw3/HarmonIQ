@@ -1,8 +1,7 @@
 import os
 import dotenv
-from db.models import engine, SessionLocal, init_db
+from db.models import Base, engine, SessionLocal, init_db, Artist, Scrobble
 from api.maloja import MalojaScrobbleServer
-from db.models import Base
 from sqlalchemy import Table, MetaData
 from api.spotify import SpotifyClient
 
@@ -27,6 +26,7 @@ def reset_db():
     Base.metadata.create_all(bind=engine)
     exit(1)
 
+SYNC_SCROBBLES = False
 def main():
     # Access database
 
@@ -41,13 +41,14 @@ def main():
 
     # Sync scrobbles
     try:
-        maloja.sync_scrobbles(session)
+        if SYNC_SCROBBLES:
+            maloja.sync_scrobbles(session)
     except Exception as e:
         print(f"Error during sync: {e}")
     finally:
         session.close()
 
-    Spotifyclient 
+    #spotify = SpotifyClient()
 
 
 if __name__ == "__main__":

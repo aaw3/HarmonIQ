@@ -80,7 +80,7 @@ class Track(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
-    length = Column(Integer, nullable=False)  # Length of the track in seconds
+    length = Column(Integer, nullable=True)  # Length of the track in seconds
     album_id = Column(Integer, ForeignKey("albums.id"), nullable=True)
     album = relationship("Album", back_populates="tracks")
     artists = relationship("Artist", secondary=track_artists, back_populates="tracks")

@@ -2,3 +2,5 @@ spotipy
 requests
 python-dotenv
 psycopg2
+alembic
+tqdm
